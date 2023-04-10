@@ -7,12 +7,12 @@ const authLogin = async ({ email, password }) => {
 };
 
 const create = async (user) => {
-  const hasEmailInDB = await User.findOne({ where: { email: user.email } })
-  if (hasEmailInDB) throw httpErrorGen(409, 'User already registered')
+  const hasEmailInDB = await User.findOne({ where: { email: user.email } });
+  if (hasEmailInDB) throw httpErrorGen(409, 'User already registered');
   await User.create(user);
 };
 
 module.exports = {
   authLogin,
-  create
+  create,
 };

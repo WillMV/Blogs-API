@@ -1,4 +1,4 @@
-const {login, insert} = require('./user.controller');
+const { login, insert } = require('./user.controller');
 
 module.exports = {
   login,
