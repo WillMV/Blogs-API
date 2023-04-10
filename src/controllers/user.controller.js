@@ -1,4 +1,4 @@
-const { authLogin, create } = require('../services');
+const { authLogin, create, getAll } = require('../services');
 const { tokenGen } = require('../utils');
 
 const login = async (req, res, next) => {
@@ -23,7 +23,17 @@ const insert = async (req, res, next) => {
   }
 };
 
+const getUsers = async (_req, res, next) => {
+  try {
+    const users = await getAll(); 
+    res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   login,
   insert,
+  getUsers,
 };

@@ -8,7 +8,9 @@ const jwtConfig = {
 };
 
 const tokenGen = (data) => jwt.sign({ data }, secret, jwtConfig);
+const tokenVerify = (token) => jwt.verify(token, secret);
 
 module.exports = {
   tokenGen,
+  tokenVerify,
 };

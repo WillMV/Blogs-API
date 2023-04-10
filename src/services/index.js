@@ -1,6 +1,5 @@
-const { authLogin, create } = require('./user.service');
+const users = require('./user.service');
 
 module.exports = {
-  authLogin,
-  create,
+  ...users,
 };

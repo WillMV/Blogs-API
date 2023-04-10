@@ -12,7 +12,19 @@ const create = async (user) => {
   await User.create(user);
 };
 
+const getAll = async () => {
+  const users = await User.findAll({
+    attributes: { exclude: ['password'] },
+  });
+  return users;
+};
+
+// const findByEmail = async (email) => {
+//   const email = await User.findOne({ where: { email } })
+// };
+
 module.exports = {
   authLogin,
   create,
+  getAll,
 };
