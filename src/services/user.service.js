@@ -19,12 +19,15 @@ const getAll = async () => {
   return users;
 };
 
-// const findByEmail = async (email) => {
-//   const email = await User.findOne({ where: { email } })
-// };
+const findById = async (id) => {
+  const user = await User.findByPk(id, { attributes: { exclude: ['password'] } });
+  if (!user) throw httpErrorGen(404, 'User does not exist');
+  return user;
+};
 
 module.exports = {
   authLogin,
   create,
   getAll,
+  findById,
 };

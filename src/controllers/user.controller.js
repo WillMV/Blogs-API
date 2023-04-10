@@ -1,4 +1,4 @@
-const { authLogin, create, getAll } = require('../services');
+const { authLogin, create, getAll, findById } = require('../services');
 const { tokenGen } = require('../utils');
 
 const login = async (req, res, next) => {
@@ -25,8 +25,19 @@ const insert = async (req, res, next) => {
 
 const getUsers = async (_req, res, next) => {
   try {
-    const users = await getAll(); 
+    const users = await getAll();
     res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getById = async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    if (!id) return res.status(400).json({ message: 'id invalido' });
+    const user = await findById(id);
+    res.status(200).json(user);
   } catch (error) {
     next(error);
   }
@@ -36,4 +47,5 @@ module.exports = {
   login,
   insert,
   getUsers,
+  getById,
 };
