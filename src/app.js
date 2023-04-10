@@ -1,6 +1,6 @@
 const express = require('express');
 const routers = require('./routers');
-// ...
+const { handleError } = require('./middlewares');
 
 const app = express();
 
@@ -10,8 +10,7 @@ app.get('/', (_request, response) => {
 });
 app.use(express.json());
 app.use(routers);
-// ...
-
+app.use(handleError);
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
 module.exports = app;
