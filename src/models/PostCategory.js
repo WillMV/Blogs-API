@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  const PostCategories = sequelize.define(
-    'PostCategories',
+  const PostCategory = sequelize.define(
+    'PostCategory',
     {},
     {
       tableName: 'posts_categories',
@@ -10,19 +10,19 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false,
     },
   );
-    PostCategories.associate = (models) => {
+    PostCategory.associate = (models) => {
       models.BlogPost.belongsToMany(models.Category, {
         as: 'blog_posts',
-        through: PostCategories,
+        through: PostCategory,
         foreignKey: 'postId',
         otherKey: 'categoryId',
       });
       models.Category.belongsToMany(models.BlogPost, {
         as: 'categories',
-        through: PostCategories,
+        through: PostCategory,
         foreignKey: 'categoryId',
         otherKey: 'postId',
       })
     };
-  return PostCategories;
+  return PostCategory;
 }
