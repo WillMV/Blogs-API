@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  const blogPost = sequelize.define('blogPost', {
+  const BlogPost = sequelize.define('BlogPost', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -13,15 +13,17 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       foreingKey: true,
     },
+    published: DataTypes.DATE,
+    updated: DataTypes.DATE,
   }, {
-    tableName: 'blog_posts',
+    tableName: 'Vlog_posts',
     underscored: true,
   });
 
-  blogPost.associate = (models) => {
-    blogPost.belongsTo(models.User,
+  BlogPost.associate = (models) => {
+    BlogPost.belongsTo(models.User,
       { foreingKey: 'user_id', as: 'user' })
   }
 
-  return blogPost;
+  return BlogPost;
 }
