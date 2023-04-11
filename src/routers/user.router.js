@@ -1,11 +1,11 @@
 const express = require('express');
-const { insert, getUsers, getById } = require('../controllers');
+const { Users } = require('../controllers');
 const { userValidate, tokenValidate } = require('../middlewares');
 
 const router = express.Router();
 
-router.post('/user', userValidate, insert);
-router.get('/user', tokenValidate, getUsers);
-router.get('/user/:id', tokenValidate, getById);
+router.post('/user', userValidate, Users.insert);
+router.get('/user', tokenValidate, Users.getUsers);
+router.get('/user/:id', tokenValidate, Users.getById);
 
 module.exports = router;
