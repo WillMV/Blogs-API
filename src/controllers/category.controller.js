@@ -11,6 +11,16 @@ const insert = async (req, res, next) => {
   }
 };
 
+const getAll = async (_req, res, next) => {
+  try {
+    const categories = await Categorys.getAll();
+    return res.status(200).json(categories);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   insert,
+  getAll,
 };
