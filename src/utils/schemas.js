@@ -7,6 +7,13 @@ const userSchema = Joi.object({
   image: Joi.string().label('image'),
 });
 
+const postSchema = Joi.object({
+  title: Joi.string().required().label('title'),
+  content: Joi.string().required().label('content'),
+  categoryIds: Joi.array().required().label('categoryIds'),
+});
+
 module.exports = {
   userSchema,
+  postSchema,
 };

@@ -1,15 +1,20 @@
 const { User } = require('../models');
 const { httpErrorGen } = require('../utils');
+const { tokenGen } = require('../utils');
 
-const authLogin = async ({ email, password }) => {
+const login = async ({ email, password }) => {
   const catchUser = await User.findOne({ where: { email, password } });
   if (!catchUser) throw httpErrorGen(400, 'Invalid fields');
+  const token = tokenGen({ id: catchUser.id });
+  return token;
 };
 
 const create = async (user) => {
   const hasEmailInDB = await User.findOne({ where: { email: user.email } });
   if (hasEmailInDB) throw httpErrorGen(409, 'User already registered');
-  await User.create(user);
+  const u = await User.create(user);
+  const token = tokenGen({ id: u.id });
+  return token;
 };
 
 const getAll = async () => {
@@ -26,7 +31,7 @@ const findById = async (id) => {
 };
 
 module.exports = {
-  authLogin,
+  login,
   create,
   getAll,
   findById,

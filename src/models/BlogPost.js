@@ -13,8 +13,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       foreingKey: true,
     },
-    published: DataTypes.DATE,
-    updated: DataTypes.DATE,
+    createdAt: {
+      type: DataTypes.DATE,
+      field: 'published',
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      field: 'updated',
+    },
   }, {
     tableName: 'blog_posts',
     underscored: true,

@@ -1,11 +1,9 @@
 const { Users } = require('../services');
-const { tokenGen } = require('../utils');
 
 const login = async (req, res, next) => {
   try {
     const { body } = req;
-    await Users.authLogin(body);
-    const token = tokenGen({ email: body.email });
+    const token = await Users.login(body);
     res.status(200).json({ token });
   } catch (error) {
     next(error);
@@ -15,8 +13,7 @@ const login = async (req, res, next) => {
 const insert = async (req, res, next) => {
   try {
     const { body } = req;
-    await Users.create(body);
-    const token = tokenGen({ email: body.email });
+    const token = await Users.create(body);
     res.status(201).json({ token });
   } catch (error) {
     next(error);
