@@ -13,17 +13,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       foreingKey: true,
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      field: 'published',
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      field: 'updated',
-    },
   }, {
     tableName: 'blog_posts',
     underscored: true,
+    createdAt: 'published',
+    updatedAt: 'updated',
   });
 
   BlogPost.associate = (models) => {
