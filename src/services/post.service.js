@@ -27,19 +27,36 @@ const insert = async ({ title, content, categoryIds, userId }) => {
   return result;
 };
 
+const findById = async (id) => {
+  const post = await BlogPost.findByPk(id, {
+    include: { all: true, attributes: { exclude: ['password'] } },
+  });
+  if (!post) throw httpErrorGen(404, 'Post does not exist');
+  return post;
+};
+
 const findAll = async () => {
   const result = await BlogPost.findAll({
     include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
-      { model: Category, as: 'categories', attributes: { exclude: ['PostCategory'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
     ],
+    // include: { all: true, attributes: { exclude: ['password']}, nested: false }
 
   });
   return result;
+};
+
+const update = async ({ title, content, id }) => {
+  const post = await BlogPost.findOne({ where: title, content });
+  if (post.userId !== id) throw httpErrorGen(401, 'Unauthorized user');
+  return post;
 };
 
 module.exports = {
   insert,
   findAll,
   hasCategories,
+  update,
+  findById,
 };

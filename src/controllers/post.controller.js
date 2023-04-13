@@ -15,8 +15,30 @@ const insert = async (req, res, next) => {
 
 const findAll = async (_req, res, next) => {
   try {
-    const response = await Post.findAll();
-    res.status(200).json(response);
+    const result = await Post.findAll();
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const update = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const { body } = req.body;
+    const data = { id, ...body };
+    const result = await Post.update(data);
+    return res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const findById = async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    const post = await Post.findById(id);
+    return res.status(200).json(post);
   } catch (error) {
     next(error);
   }
@@ -25,4 +47,6 @@ const findAll = async (_req, res, next) => {
 module.exports = {
   insert,
   findAll,
+  update,
+  findById,
 };
