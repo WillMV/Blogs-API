@@ -9,10 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     title: DataTypes.STRING,
     content: DataTypes.STRING,
-    userId: {
-      type: DataTypes.INTEGER,
-      foreingKey: true,
-    },
+    userId: DataTypes.INTEGER,
+
   }, {
     tableName: 'blog_posts',
     underscored: true,
@@ -22,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
 
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User,
-      { foreingKey: 'user_id', as: 'user' })
+      { foreignKey: 'userId', as: 'user' })
   }
 
   return BlogPost;

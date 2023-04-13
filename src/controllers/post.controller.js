@@ -13,6 +13,16 @@ const insert = async (req, res, next) => {
   }
 };
 
+const findAll = async (_req, res, next) => {
+  try {
+    const response = await Post.findAll();
+    res.status(200).json(response);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   insert,
+  findAll,
 };
