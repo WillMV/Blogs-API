@@ -1,12 +1,12 @@
 const express = require('express');
 const { Post } = require('../controllers');
-const { tokenValidate, postValidate } = require('../middlewares');
+const { tokenValidate, postValidate, postUpdateValidate } = require('../middlewares');
 
 const router = express.Router();
 
 router.post('/post', tokenValidate, postValidate, Post.insert);
 router.get('/post', tokenValidate, Post.findAll);
 router.get('/post/:id', tokenValidate, Post.findById);
-router.put('/post/:id', tokenValidate, Post.update);
+router.put('/post/:id', tokenValidate, postUpdateValidate, Post.update);
 
 module.exports = router;

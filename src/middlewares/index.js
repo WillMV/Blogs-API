@@ -3,6 +3,7 @@ const handleError = require('./handleError');
 const userValidate = require('./userValidate');
 const tokenValidate = require('./tokenValidate');
 const postValidate = require('./postValidate');
+const postUpdateValidate = require('./postUpdateValidate');
 
 module.exports = {
   loginValidate,
@@ -10,4 +11,5 @@ module.exports = {
   userValidate,
   tokenValidate,
   postValidate,
+  postUpdateValidate,
 };

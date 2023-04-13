@@ -24,10 +24,10 @@ const findAll = async (_req, res, next) => {
 
 const update = async (req, res, next) => {
   try {
+    const userId = Number(req.user.id);
     const { id } = req.user;
-    const { body } = req.body;
-    const data = { id, ...body };
-    const result = await Post.update(data);
+    const { body } = req;
+    const result = await Post.update({ userId, id, ...body });
     return res.status(200).json(result);
   } catch (error) {
     next(error);

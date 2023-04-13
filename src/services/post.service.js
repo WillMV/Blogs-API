@@ -41,16 +41,15 @@ const findAll = async () => {
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
       { model: Category, as: 'categories', through: { attributes: [] } },
     ],
-    // include: { all: true, attributes: { exclude: ['password']}, nested: false }
-
   });
   return result;
 };
 
-const update = async ({ title, content, id }) => {
-  const post = await BlogPost.findOne({ where: title, content });
-  if (post.userId !== id) throw httpErrorGen(401, 'Unauthorized user');
-  return post;
+const update = async ({ title, content, id, userId }) => {
+  const [response] = await BlogPost.update({ title, content }, { where: { id, userId } });
+  if (response === 0) throw httpErrorGen(401, 'Unauthorized user');
+  const result = await findById(id);
+  return result;
 };
 
 module.exports = {
