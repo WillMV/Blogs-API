@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const { Op } = require('sequelize');
 const config = require('../config/config');
 const { BlogPost, PostCategory, Category, User } = require('../models');
 const { httpErrorGen } = require('../utils');
@@ -59,6 +60,27 @@ const remove = async (id, userId) => {
   await BlogPost.destroy({ where: { id } });
 };
 
+const findByTerm = async (term) => {
+  const finder = await BlogPost.findAll({
+    where: {
+      [Op.or]: [
+        {
+          title: {
+            [Op.like]: `%${term}%`,
+          },
+        },
+        {
+          content: {
+            [Op.like]: `%${term}%`,
+          },
+        },
+      ],
+    },
+    include: { all: true, attributes: { exclude: ['password'] } },
+  });
+  return finder;
+};
+
 module.exports = {
   insert,
   findAll,
@@ -66,4 +88,5 @@ module.exports = {
   update,
   findById,
   remove,
+  findByTerm,
 };

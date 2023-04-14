@@ -54,6 +54,15 @@ const remove = async (req, res, next) => {
     next(error);
   }
 };
+const findByTerm = async (req, res, next) => {
+  try {
+    const { q } = req.query;
+    const finder = await Post.findByTerm(q);
+    res.status(200).json(finder);
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   insert,
@@ -61,4 +70,5 @@ module.exports = {
   update,
   findById,
   remove,
+  findByTerm,
 };
