@@ -25,7 +25,7 @@ const findAll = async (_req, res, next) => {
 const update = async (req, res, next) => {
   try {
     const userId = Number(req.user.id);
-    const { id } = req.user;
+    const id = Number(req.params.id);
     const { body } = req;
     const result = await Post.update({ userId, id, ...body });
     return res.status(200).json(result);
@@ -44,9 +44,21 @@ const findById = async (req, res, next) => {
   }
 };
 
+const remove = async (req, res, next) => {
+  try {
+    const userId = Number(req.user.id);
+    const id = Number(req.params.id);
+    await Post.remove(id, userId);
+    return res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   insert,
   findAll,
   update,
   findById,
+  remove,
 };

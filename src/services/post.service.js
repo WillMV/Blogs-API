@@ -52,10 +52,18 @@ const update = async ({ title, content, id, userId }) => {
   return result;
 };
 
+const remove = async (id, userId) => {
+  const post = await findById(id);
+  if (!post) throw httpErrorGen(404, 'Post does not exist');
+  if (post.userId !== userId) throw httpErrorGen(401, 'Unauthorized user');
+  await BlogPost.destroy({ where: { id } });
+};
+
 module.exports = {
   insert,
   findAll,
   hasCategories,
   update,
   findById,
+  remove,
 };
