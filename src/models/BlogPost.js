@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     userId: DataTypes.INTEGER,
-    published: DataTypes.DATA,
-    updated: DataTypes.DATA 
+    published: DataTypes.DATE,
+    updated: DataTypes.DATE,
   }, {
     underscored: true,
     tableName: 'blog_posts',
