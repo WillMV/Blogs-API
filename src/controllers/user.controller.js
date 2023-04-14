@@ -40,9 +40,20 @@ const getById = async (req, res, next) => {
   }
 };
 
+const remove = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    await Users.remove(id);
+    res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   login,
   insert,
   getUsers,
   getById,
+  remove,
 };
