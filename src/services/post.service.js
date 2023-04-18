@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const { Op } = require('sequelize');
-const config = require('../../config');
+const config = require('../config/config');
 const { BlogPost, PostCategory, Category, User } = require('../models');
 const { httpErrorGen } = require('../utils');
 
