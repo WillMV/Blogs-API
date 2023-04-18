@@ -19,11 +19,6 @@ jobs:
         with:
           npm-mode: true
 
-      - name: Deploy to Railway - Front-end
-        run: railway up --detach -s front-end
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-
       - name: Deploy to Railway - Back-end
         run: railway up --detach -s back-end
         env:
