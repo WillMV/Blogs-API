@@ -4,6 +4,7 @@ RUN apt install lsof
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
+RUN railway connect MySQL
 COPY src src
 COPY .eslintignore .
 COPY .eslintrc.json .
